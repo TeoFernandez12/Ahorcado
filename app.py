@@ -1,9 +1,7 @@
 
-from distutils.log import error
-from random import random
 import random
 import json
-from funciones import *
+import funciones as fnc
 
 #Carga de variables
 intentos = 3
@@ -18,8 +16,7 @@ with open('palabras.json', 'r') as f:
   palabras = json.load(f)
 
 nombre = input("\n\ningrese su nombre: ")
-
-palabraSeleccionada = random.choice(palabras).upper()#Selecciona palabra random
+palabraSeleccionada = random.choice(palabras).upper()
 letras = len(palabraSeleccionada)
 print(palabraSeleccionada)
 
@@ -28,7 +25,7 @@ for num in range(0, letras):
 
 print("\nHola " + nombre + ", tu palabra tiene " + str(letras) + " letras")
 
-tiempoInicio = obtenerTiempo()
+tiempoInicio = fnc.obtenerTiempo()
 
 #While carcula las vidas
 while len(errores) <= intentos:
@@ -44,7 +41,7 @@ while len(errores) <= intentos:
         if palabraIngresada == palabraSeleccionada:
 
             
-                tiempoFin = obtenerTiempo() - tiempoInicio
+                tiempoFin = fnc.obtenerTiempo() - tiempoInicio
 
                 print("Felicidades " + nombre + " acava de ganar el juego en " + str(tiempoFin) + " segundos")
 
@@ -57,11 +54,11 @@ while len(errores) <= intentos:
     #Comprueba la valides de la letra
     if len(letraIngresada) == 1 or ~ letraIngresada.isnumeric():        
 
-        encontrado = buscarEnLista(aciertos,letraIngresada)
+        encontrado = fnc.buscarEnLista(aciertos,letraIngresada)
 
         #Indica que la letra no es valida, y la guarda en una lista
         if encontrado == False:
-            encontrado = buscarEnLista(errores, letraIngresada)
+            encontrado = fnc.buscarEnLista(errores, letraIngresada)
 
         #If arriesgar
         if letraIngresada == "1":
@@ -69,7 +66,7 @@ while len(errores) <= intentos:
 
             if arriesgar == palabraSeleccionada:
 
-                tiempoFin = obtenerTiempo() - tiempoInicio
+                tiempoFin = fnc.obtenerTiempo() - tiempoInicio
 
                 ranking = [nombre, tiempoFin]
 
@@ -78,7 +75,7 @@ while len(errores) <= intentos:
 
                 print(nombre + "Acava de ganar el juego en " + tiempoFin + " tiempo")
 
-                print("El ranking quedaria: " + rankingg.json)
+                print("El ranking quedaria: ")
 
         #Indica que la letra ya fue ingresada antes    
         if encontrado:
@@ -116,9 +113,8 @@ while len(errores) <= intentos:
             #Indica que la letra es correcta
             else:
                 print("La letra " + letraIngresada + ", es correcta")
-                imprimirResultado(aciertos)
+                fnc.imprimirResultado(aciertos)
 
-            
     else:
         DatoNoValido = intentos + 1
         print("Dato ingresado no válido !!!!")
