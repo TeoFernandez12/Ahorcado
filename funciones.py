@@ -1,7 +1,5 @@
 import calendar
-import json
 import time
-from app import *
 
 def obtenerTiempo():
   current_GMT = time.gmtime()
