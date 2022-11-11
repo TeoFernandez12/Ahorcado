@@ -9,6 +9,7 @@ encontrado = False
 palabraIngresada = ""
 tiempoInicio = 0
 tiempoFin = 0
+listaRanking = []
 
 with open('palabras.json', 'r') as f:
   palabras = json.load(f)
@@ -16,7 +17,7 @@ with open('palabras.json', 'r') as f:
 nombre = input("\n\ningrese su nombre: ")
 palabraSeleccionada = random.choice(palabras).upper()
 letras = len(palabraSeleccionada)
-#print(palabraSeleccionada)
+print(palabraSeleccionada)
 
 for num in range(0, letras):
     aciertos.append("_")
@@ -37,17 +38,35 @@ while len(errores) <= intentos:
             
                 tiempoFin = funciones.obtenerTiempo() - tiempoInicio
 
-                ranking = {
+                datos = {
                     'Nombre': nombre,
                     'Tiempo': tiempoFin
                     }
 
-                with open('ranking.json','w') as f:
-                    json.dump(ranking, f, sort_keys=True)
+                with open('ranking.json','a') as f:
+                    json.dump(datos, f, sort_keys=True)
+
+        #        def escribeJson(data, filename="ranking.json"):
+       #             with open(filename, 'w') as f:
+      #                  json.dump(data, f, indent=4)
+                
+     #           with open("ranking.json") as json_file:
+    #                data = json.load(json_file)
+   #                 temp = data ["RANKING"]
+  #                  y = {"Nombre": nombre, "Tiempo": tiempoFin}
+ #                   temp.append(y)
+
+#                write_json(data)
 
                 print("Felicidades " + nombre + " acava de ganar el juego en " + str(tiempoFin) + " segundos")
 
-                print(ranking)
+                print(datos)
+
+                if __name__=='__app__':
+                    ruta='ranking,json'
+                    rankingOrden(ruta)
+
+                print(ranking.json())
 
         else:
             print ("\nPErdiste!!! La palabra era " + palabraSeleccionada)
@@ -71,7 +90,7 @@ while len(errores) <= intentos:
 
                 print(nombre + "Acava de ganar el juego en " + tiempoFin + " tiempo")
 
-                print("El ranking quedaria: ")
+                print("El datos quedaria: ")
 
         if encontrado:
             print("La letra " + letraIngresada + " ya fue ingresada!!!" )

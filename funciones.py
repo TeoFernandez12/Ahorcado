@@ -1,6 +1,7 @@
 import calendar
 import time
 
+
 def obtenerTiempo():
   current_GMT = time.gmtime()
   time_stamp = calendar.timegm(current_GMT)
@@ -17,3 +18,4 @@ def buscarEnLista(lista, valor):
         if item == valor:
             return True
     return False
+    
