@@ -2,7 +2,7 @@ import random
 import json
 import funciones 
 
-intentos = 3
+intentos = 5
 aciertos = []
 errores = []
 encontrado = False
@@ -16,7 +16,7 @@ with open('palabras.json', 'r') as f:
 nombre = input("\n\ningrese su nombre: ")
 palabraSeleccionada = random.choice(palabras).upper()
 letras = len(palabraSeleccionada)
-print(palabraSeleccionada)
+#print(palabraSeleccionada)
 
 for num in range(0, letras):
     aciertos.append("_")
@@ -37,7 +37,17 @@ while len(errores) <= intentos:
             
                 tiempoFin = funciones.obtenerTiempo() - tiempoInicio
 
+                ranking = {
+                    'Nombre': nombre,
+                    'Tiempo': tiempoFin
+                    }
+
+                with open('ranking.json','w') as f:
+                    json.dump(ranking, f, sort_keys=True)
+
                 print("Felicidades " + nombre + " acava de ganar el juego en " + str(tiempoFin) + " segundos")
+
+                print(ranking)
 
         else:
             print ("\nPErdiste!!! La palabra era " + palabraSeleccionada)
@@ -59,11 +69,6 @@ while len(errores) <= intentos:
 
                 tiempoFin = funciones.obtenerTiempo() - tiempoInicio
 
-                ranking = [nombre, tiempoFin]
-
-                with open('rankingg.json','w') as f:
-                    json.dump(ranking, f, sort_keys=True)
-
                 print(nombre + "Acava de ganar el juego en " + tiempoFin + " tiempo")
 
                 print("El ranking quedaria: ")
@@ -72,7 +77,6 @@ while len(errores) <= intentos:
             print("La letra " + letraIngresada + " ya fue ingresada!!!" )
 
         else:
-
             for letra in palabraSeleccionada:
                 if letra == letraIngresada:
                     encontrado = True
@@ -95,7 +99,6 @@ while len(errores) <= intentos:
                     print("Te quedan " +  str(vidas) + " intentos")
                 else:
                     print("Te queda " +  str(vidas) + " intento")
-
             else:
                 print("La letra " + letraIngresada + ", es correcta")
                 funciones.imprimirResultado(aciertos)
